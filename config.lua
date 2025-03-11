@@ -2,6 +2,39 @@ reload "user.which-key"
 reload "user.opt"
 reload "user.plugins"
 
+require 'lspconfig'.astro.setup {}
+lvim.lsp.automatic_configuration.skipped_servers = { "tsserver" }
+
+-- goplsのセットアップ
+local lspconfig = require("lspconfig")
+
+-- Masonによるgoplsのインストールとセットアップは自動で行われる
+lvim.lsp.automatic_servers_installation = false -- 手動インストールする場合はfalse
+
+lspconfig.gopls.setup {
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+        },
+    },
+}
+
+-- フォーマッタの設定
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+    { command = "goimports", filetypes = { "go" } },
+}
+
+-- 静的解析の設定
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+    { command = "staticcheck", filetypes = { "go" } },
+}
+
+
 -- window move
 lvim.keys.normal_mode["<C-Left>"] = "<C-w>h"
 lvim.keys.normal_mode["<C-Down>"] = "<C-w>j"
@@ -38,9 +71,25 @@ lvim.keys.visual_mode["<S-Up>"] = ":m '<-2<CR>gv=gv"
 lvim.transparent_window = true
 -- lvim.colorscheme = "vim"
 -- lvim.colorscheme = "kanagawa"
-lvim.colorscheme = "rose-pine"
+-- lvim.colorscheme = "rose-pine"
+-- lvim.colorscheme = "lunaperche"
+-- lvim.colorscheme = "everforest"
+-- lvim.colorscheme = "gruvbox"
+lvim.colorscheme = "nordfox"
+-- lvim.colorscheme = "duskfox"
 
 lvim.format_on_save.enabled = true
 lvim.builtin.nvimtree.setup.filters.exclude = {}
-require 'lspconfig'.astro.setup {}
-require 'lspconfig'.gopls.setup {}
+
+-- harpoon
+-- local harpoon = require("harpoon")
+-- harpoon:setup()
+-- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+-- vim.keymap.set("n", "<C-k>", function() harpoon:list():select(1) end)
+-- vim.keymap.set("n", "<C-l>", function() harpoon:list():select(2) end)
+-- vim.keymap.set("n", "<C-,>", function() harpoon:list():select(3) end)
+-- vim.keymap.set("n", "<C-.>", function() harpoon:list():select(4) end)
+-- vim.keymap.set("n", "mk", function() harpoon:list():replace_at(1) end)
+-- vim.keymap.set("n", "ml", function() harpoon:list():replace_at(2) end)
+-- vim.keymap.set("n", "m,", function() harpoon:list():replace_at(3) end)
+-- vim.keymap.set("n", "m.", function() harpoon:list():replace_at(4) end)

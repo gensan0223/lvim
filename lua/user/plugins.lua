@@ -1,12 +1,14 @@
 lvim.plugins = {
-    { "rose-pine/neovim",     name = "rose-pine" },
+    { "EdenEast/nightfox.nvim" },
+    { "ellisonleao/gruvbox.nvim" },
+    { "rose-pine/neovim",        name = "rose-pine" },
+    { "sainnhe/everforest" },
     {
         "sho-87/kanagawa-paper.nvim",
         lazy = false,
         priority = 1000,
         opts = {},
     },
-    { "oxfist/night-owl.nvim" },
     { "rebelot/kanagawa.nvim" },
     {
         "ggandor/leap.nvim",
@@ -36,67 +38,31 @@ lvim.plugins = {
             })
         end
     },
-    {
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-            menu = {
-                width = vim.api.nvim_win_get_width(0) - 4,
-            },
-            settings = {
-                save_on_toggle = true,
-            },
-        },
-        keys = function()
-            local keys = {
-                {
-                    "<leader>a",
-                    function()
-                        require("harpoon"):list():add()
-                    end,
-                    desc = "Harpoon File",
-                },
-                {
-                    "<C-e>",
-                    function()
-                        local harpoon = require("harpoon")
-                        harpoon.ui:toggle_quick_menu(harpoon:list())
-                    end,
-                    desc = "Harpoon Quick Menu",
-                },
-                {
-                    "<C-k>",
-                    function()
-                        require("harpoon"):list():select(1)
-                    end,
-                    desc = "Harpoon File 1",
-                },
-                {
-                    "<C-l>",
-                    function()
-                        require("harpoon"):list():select(2)
-                    end,
-                    desc = "Harpoon File 2",
-                },
-                {
-                    "<C-,>",
-                    function()
-                        require("harpoon"):list():select(3)
-                    end,
-                    desc = "Harpoon File 3",
-                },
-                {
-                    "<C-.>",
-                    function()
-                        require("harpoon"):list():select(4)
-                    end,
-                    desc = "Harpoon File 4",
-                }
-            }
-            return keys
-        end,
-    },
+    -- {
+    --     "ThePrimeagen/harpoon",
+    --     branch = "harpoon2",
+    --     dependencies = { "nvim-lua/plenary.nvim" },
+    --     opts = {
+    --         menu = {
+    --             width = vim.api.nvim_win_get_width(0) - 4,
+    --         },
+    --         settings = {
+    --             save_on_toggle = true,
+    --         },
+    --     },
+    --     keys = function()
+    --         local keys = {
+    --             {
+    --                 "<leader>a",
+    --                 function()
+    --                     require("harpoon"):list():add()
+    --                 end,
+    --                 desc = "Harpoon File",
+    --             },
+    --         }
+    --         return keys
+    --     end,
+    -- },
     {
         "windwp/nvim-ts-autotag",
         config = function()
@@ -111,10 +77,12 @@ lvim.plugins = {
             "Gdiffsplit",
             "Gread",
             "Gwrite",
+            "Gstatus",
             "Ggrep",
             "GMove",
             "GDelete",
             "GBrowse",
+            "GBlame",
             "GRemove",
             "GRename",
             "Glgrep",
